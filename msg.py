@@ -7,12 +7,12 @@ Contains:
 
 TEXT_INIT = '--- TRAIL CAM FILTER ---'
 """Text for indication of project starting."""
-TEXT_SOURCE = {'Enter a folder containing videos to use or a single video '
-               + 'file. Leave blank to use suggested directory.'}
+TEXT_SOURCE = ('Enter a folder containing videos to use or a single video '
+               + 'file. Leave blank to use suggested directory.')
 """Text for source selection prompt."""
-TEXT_DEST = {'Enter a folder to generate output. If folder does not exist, '
+TEXT_DEST = ('Enter a folder to generate output. If folder does not exist, '
              + 'it will be created. Leave blank to use suggested '
-             + 'directory.'}
+             + 'directory.')
 """Text for destination selection prompt."""
 TEXT_PROMPT = ' > '
 """Text for actual user input prompt."""
