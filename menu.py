@@ -1,12 +1,16 @@
 """This module acts as the controller for the project.
 """
 
-import msg
+import msg, properties, merge, speed, difference
 import os.path
 
 SAVE_FILE = 'past.txt'
 """File name for file storing past paths for future access."""
-FUNCTIONS = ['exit', 'prop', 'merge', 'speed', 'diff']
+FUNCTIONS = {'exit': None,
+             'prop': properties.run,
+             'merge': merge.run,
+             'speed': speed.run,
+             'diff': difference.run}
 """Inputs accepted that tie to some other action."""
 FUNCTIONS_HELP = (' exit  : close menu\n'
                   + ' prop  : sort by video properties like duration\n'
@@ -134,6 +138,5 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
-        
-    
+    while not run(): # exit flag is true
+        pass
