@@ -83,14 +83,33 @@ def make_full_path(path, file_type='dir'):
     return path
 
 
+def create_path(path):
+    """Creates all parts of a path that do not already exist.
+
+    :param path: path to make
+    :type path: str
+    """
+
+    leftover = path
+    dirs = []
+    cont = True
+    while cont:
+        dirs.append(leftover)
+        leftover = os.path.dirname(leftover)
+        cont = not (leftover == '' or os.path.ismount(leftover))
+    dirs.reverse()
+    for path in dirs:
+        if not os.path.isdir(path):
+            os.mkdir(path)
+
+
 def run():
     """Main functionality of menu.
 
     :return: if project should exit
     :rtype: bool
     """
-    
-    msg.form_print(f'{msg.TEXT_INIT}\n') # startup text
+
     function = ''
     while function == '':
         msg.form_print(msg.TEXT_FUNCTION)
@@ -99,7 +118,7 @@ def run():
         if inp in FUNCTIONS:
             function = inp
         else:
-            msg.form_print('Not a valid function, try again,\n')
+            msg.form_print('Not a valid function, try again\n')
     if function == 'exit':
         return True
     else:
@@ -122,7 +141,7 @@ def run():
             source_is_folder = suggest_is_folder
             source = suggest_source
         else:
-            msg.form_print('Not a valid path, try again,\n')
+            msg.form_print('Not a valid path, try again\n')
     msg.form_print(f'Using source {source}\n')
     while dest == '': # get dest from input
         msg.form_print(msg.TEXT_DEST)
@@ -133,10 +152,19 @@ def run():
         elif inp == '':
             dest = suggest_dest
         else:
-            msg.form_print('Not a valid path, try again,\n')
+            msg.form_print('Not a valid path, create it? (y/n)')
+            conf = input(msg.TEXT_PROMPT).strip()
+            if conf == 'y':
+                create_path(inp)
+                if os.path.isdir(inp):
+                    dest = make_full_path(inp, 'dir')
+                else:
+                    msg.form_print('Could not create path, try again\n')
     msg.form_print(f'Using destination {dest}\n')
+    FUNCTIONS[function](source, source_is_folder, dest)
 
 
 if __name__ == '__main__':
+    msg.form_print(f'{msg.TEXT_INIT}\n') # startup text
     while not run(): # exit flag is true
         pass
