@@ -6,6 +6,7 @@ Requires external library `moviepy`.
 Contains:
 
     *:func:`run`
+    *:func:`is_video`
 """
 
 import msg
@@ -28,7 +29,8 @@ def run(source, source_is_folder, dest):
     msg.form_print('Starting merge...')
     files = []
     if source_is_folder:
-        files = [file for file in os.listdir(source) if os.path.isfile(file)]
+        files = [os.path.join(source, file) for file in os.listdir(source)
+                 if is_video(file)]
     else:
         files = [source]
     msg.form_print(f'Found {len(files)} files from {source}')
@@ -38,3 +40,14 @@ def run(source, source_is_folder, dest):
                   + '_merged.mp4')
     final.write_videofile(os.path.join(dest, final_name))
     msg.form_print(f'Wrote {final_name} to {dest}')
+
+
+def is_video(path):
+    """Checks that a path has a video format file extension.
+
+    :param path: path to a file
+    :type path: str
+    """
+
+    ext = os.path.splitext(path)[1]
+    return ext.lower() in ['.mp4', '.avi', '.mov']
