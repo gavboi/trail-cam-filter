@@ -14,6 +14,8 @@ TEXT_DEST = ('Enter a folder to generate output. If folder does not exist, '
              + 'it will be created. Leave blank to use suggested '
              + 'directory.')
 """Text for destination selection prompt."""
+TEXT_FUNCTION = 'Enter a task to execute.'
+"""Text for function selection prompt."""
 TEXT_PROMPT = ' > '
 """Text for actual user input prompt."""
 
