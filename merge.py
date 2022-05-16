@@ -39,7 +39,7 @@ def run(source, source_is_folder, dest):
     final_name = (os.path.splitext(os.path.basename(files[0]))[0]
                   + '_merged.mp4')
     final.write_videofile(os.path.join(dest, final_name))
-    msg.form_print(f'Wrote {final_name} to {dest}')
+    msg.form_print(f'Wrote {final_name} to {dest}\n')
 
 
 def is_video(path):
